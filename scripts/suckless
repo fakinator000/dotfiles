@@ -44,9 +44,6 @@ cp config/dwm.h tmp/dwm/config.h
 cp config/st.h tmp/st/config.h
 cp config/slstatus.h tmp/slstatus/config.h
 
-# generate THEME files from the wallpaper
-wal -i wallpaper/ArchLinuxEnemy.png -n
-
 # now it's CC time
 cd tmp
 # dwm
