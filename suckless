@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# Packages needed: git, wget, bash (or a POSIX shell, idk)
+
+# clean the old tmp dir
+rm -rf tmp
+
+# make a temporary directory
+mkdir tmp
+cd tmp
+
+# get the suckless software
+
+git clone --depth 1 https://git.suckless.org/dwm
+git clone --depth 1 https://git.suckless.org/st
+git clone --depth 1 https://git.suckless.org/slstatus
+
+# make a directory for the patches
+mkdir patches
+cd patches
+# get the pathes
+
+# dwm
+wget "https://dwm.suckless.org/patches/fibonacci/dwm-fibonacci-5.8.2.diff"
+# st alpha
+wget "https://st.suckless.org/patches/alpha/st-alpha-0.8.2.diff"
+
+cd ..
+
+# apply patches for dwm
+cd dwm
+git apply "../patches/dwm-fibonacci-5.8.2.diff"
+cd ..
+# apply patches for st
+cd st
+git apply "../patches/st-alpha-0.8.2.diff"
+cd ..
+
+# return to repo root
+cd ..
+
+# copy the custom configurations
+cp config/dwm.h tmp/dwm/config.h
+cp config/st.h tmp/st/config.h
+cp config/slstatus.h tmp/slstatus/config.h
+
+# generate THEME files from the wallpaper
+wal -i wallpaper/ArchLinuxEnemy.png -n
+
+# now it's CC time
+cd tmp
+# dwm
+cd dwm
+make
+cd ..
+# st
+cd st
+make
+cd ..
+# slstatus
+cd slstatus
+make
+cd ..
+
+cd ..
+
+# install
+
+rm $HOME/.xinitrc
+cp config/xinit $HOME/.xinitrc
+
+rm $HOME/.local/bin/dwm $HOME/.local/bin/st $HOME/.local/bin/slstatus
+cp tmp/dwm/dwm $HOME/.local/bin/dwm
+cp tmp/st/st $HOME/.local/bin/st
+cp tmp/slstatus/slstatus $HOME/.local/bin/slstatus
+
+echo -e "\nDONE!\nENOJY YOUR SUCKLESS LIFE\n"
+
