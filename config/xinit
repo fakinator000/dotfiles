@@ -4,7 +4,9 @@ compton&
 # my *fancy* bloated bar
 slstatus&
 # set the wallpaper
-wal -i $HOME/dotfiles/wallpaper/ArchLinuxEnemy.png
+feh --bg-scale "$HOME/dotfiles/wallpaper/ArchLinuxEnemy.png"&
+
 
 $HOME/dotfiles/tmp/dwm/dwm
+
 
