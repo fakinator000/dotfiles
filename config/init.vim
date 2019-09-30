@@ -7,6 +7,9 @@ nnoremap <Right> <nop>
 set list lcs=tab:\|\ 
 set nu
 
+let g:python_host_prog = '/usr/bin/python2.7'
+let g:python3_host_prog = '/usr/bin/python3.7'
+
 call plug#begin('~/.neovim/plug')
 
 if has('nvim')

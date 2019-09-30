@@ -1,0 +1,56 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+export PS1="\[\e[35m\][\[\e[m\]\[\e[36m\]\u\[\e[m\]\[\e[35m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[35m\]]\[\e[m\] \[\e[36m\]\w\[\e[m\] \[\e[35m\]\\$\[\e[m\] "
+
+export PATH="$PATH:$HOME/.local/bin"
+export MANPATH="$HOME/.local/share/man/:/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man"
+export BROWSER="firefox"
+export EDITOR="nvim"
+
+####################
+#     SOURCE       #
+####################
+
+source <(kitty + complete setup bash)
+
+####################
+#    COLOR ALIAS   #
+####################
+
+alias ls='ls --color=auto'
+
+alias diff='diff --color=auto'
+
+alias grep='grep --color=auto'
+
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
+
+####################
+#   LAZY ALIAS     #
+####################
+
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+
+alias please='sudo $(fc -ln 1)'
+
+alias icat='kitty +kitten icat'
+alias phone='kdeconnect-cli -n "phone"'
+
+# usefull for setting the wallpaper to a live stream
+alias stream-desktop='streamlink --player="xwinwrap -ov -fs -- mplayer -cache 4096 -quiet -loop 0 -wid WID"'
+

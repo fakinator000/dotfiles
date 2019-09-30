@@ -1,0 +1,7 @@
+#!/bin/sh
+
+rm $HOME/.bashrc
+cp config/bashrc $HOME/.bashrc
+
+echo "Copied bashrc"
+

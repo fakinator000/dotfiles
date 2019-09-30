@@ -9,3 +9,5 @@ cp config/init.vim $HOME/.config/nvim/init.vim
 
 nvim +PlugInstall +q +q
 
+echo "DONE NEOVIM"
+

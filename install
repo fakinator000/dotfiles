@@ -1,5 +1,7 @@
 #!/bin/sh
 
-exec scripts/suckless
-exec scripts/neovim
+scripts/suckless
+scripts/neovim
+scripts/stdman
+scripts/bash
 
