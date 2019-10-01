@@ -1,6 +1,5 @@
 #!/bin/sh
 
-rm -rf tmp
 mkdir -p tmp
 cd tmp
 git clone https://github.com/jeaye/stdman
@@ -10,6 +9,8 @@ make install
 mandb
 cd ..
 cd ..
+
+rm -rf tmp
 
 echo "Installed C++ stdman"
 

@@ -71,5 +71,7 @@ cp tmp/dwm/dwm $HOME/.local/bin/dwm
 cp tmp/st/st $HOME/.local/bin/st
 cp tmp/slstatus/slstatus $HOME/.local/bin/slstatus
 
+rm -rf tmp
+
 echo -e "\nDONE!\nENOJY YOUR SUCKLESS LIFE\n"
 

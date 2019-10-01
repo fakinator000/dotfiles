@@ -16,7 +16,6 @@ export EDITOR="nvim"
 #     SOURCE       #
 ####################
 
-source <(kitty + complete setup bash)
 
 ####################
 #    COLOR ALIAS   #
