@@ -12,7 +12,7 @@ cd tmp
 # get the suckless software
 
 git clone --depth 1 https://git.suckless.org/dwm
-git clone --depth 1 https://git.suckless.org/st
+git clone https://git.suckless.org/st
 git clone --depth 1 https://git.suckless.org/slstatus
 
 # make a directory for the patches
@@ -33,6 +33,7 @@ git apply "../patches/dwm-fibonacci-5.8.2.diff"
 cd ..
 # apply patches for st
 cd st
+git checkout 0.8.2
 git apply "../patches/st-alpha-0.8.2.diff"
 cd ..
 
@@ -71,7 +72,6 @@ cp tmp/dwm/dwm $HOME/.local/bin/dwm
 cp tmp/st/st $HOME/.local/bin/st
 cp tmp/slstatus/slstatus $HOME/.local/bin/slstatus
 
-rm -rf tmp
 
 echo -e "\nDONE!\nENOJY YOUR SUCKLESS LIFE\n"
 
