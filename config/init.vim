@@ -57,15 +57,12 @@ function SetLSPShortcuts()
 	nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
 	nnoremap <leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
 	nnoremap <leader>m :call LanguageClient_contextMenu()<CR>
-	
-	autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-	autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-
 endfunction()
 
 augroup LSP
 	autocmd!
 	autocmd FileType c,cpp,go call SetLSPShortcuts()
+	autocmd BufWritePre *.c,*.cc,*.cpp,*.go,*.h,*.hh,*.hpp :call LanguageClient#textDocument_formatting()
 augroup END
 
 autocmd vimenter * NERDTree
