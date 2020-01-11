@@ -23,6 +23,9 @@ if has('nvim')
   Plug 'junegunn/fzf'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'tpope/vim-fugitive'
 endif
 
 call plug#end()
