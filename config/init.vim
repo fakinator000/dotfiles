@@ -1,38 +1,52 @@
 
+
+" nop for arrows
 nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
+inoremap <Up> <nop>
+inoremap <Down> <nop>
+inoremap <Left> <nop>
+inoremap <Right> <nop>
 
-
+" usability
 set tabstop=8
 set shiftwidth=8
 set softtabstop=8
-
 set list lcs=tab:\|\ 
 set nu
 
+" python paths pretty much
 let g:python_host_prog = '/usr/bin/python2.7'
 let g:python3_host_prog = '/usr/bin/python3.8'
+
+" PLUG
 
 call plug#begin('~/.neovim/plug')
 
 if has('nvim')
+  " programming
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
   Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh'}
-  Plug 'junegunn/fzf'
+  " utility
+  Plug 'junegunn/fzf' 
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'tpope/vim-fugitive'
+  Plug 'sirver/ultisnips'
+  Plug 'honza/vim-snippets'
+  " theming
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'tpope/vim-fugitive'
 endif
 
 call plug#end()
 
-let g:deoplete#enable_at_startup = 1
+" PLUGIN SETTINGS
 
-set hidden
+" programming
+let g:deoplete#enable_at_startup = 1
 
 let g:LanguageClient_serverCommands = {
 \'c': ['ccls'],
@@ -45,7 +59,15 @@ let g:LanguageClient_serverCommands = {
 
 let g:LanguageClient_loadSettings = 1
 
+" utility
 
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" BINDS/HOOKS (autocmd, map)
+
+" FZF \q
 nnoremap <leader>q :FZF<CR>
 
 function SetLSPShortcuts()
@@ -64,10 +86,9 @@ endfunction()
 
 augroup LSP
 	autocmd!
-	autocmd FileType c,cpp,go call SetLSPShortcuts()
+	autocmd FileType c,cc,cpp,go,h,hh,hpp call SetLSPShortcuts()
 	autocmd BufWritePre *.c,*.cc,*.cpp,*.go,*.h,*.hh,*.hpp :call LanguageClient#textDocument_formatting()
 augroup END
 
 autocmd vimenter * NERDTree
-
 
