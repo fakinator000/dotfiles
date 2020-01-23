@@ -1,5 +1,4 @@
 
-
 " nop for arrows
 nnoremap <Up> <nop>
 nnoremap <Down> <nop>
@@ -25,22 +24,23 @@ let g:python3_host_prog = '/usr/bin/python3.8'
 
 call plug#begin('~/.neovim/plug')
 
-if has('nvim')
   " programming
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
   Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh'}
+
   " utility
-  Plug 'junegunn/fzf' 
+  Plug 'junegunn/fzf'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'tpope/vim-fugitive'
   Plug 'sirver/ultisnips'
   Plug 'honza/vim-snippets'
+  Plug 'airblade/vim-gitgutter'
+
   " theming
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-endif
-
+  Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " PLUGIN SETTINGS
@@ -52,7 +52,7 @@ let g:LanguageClient_serverCommands = {
 \'c': ['ccls'],
 \'cpp': ['ccls', '--init={"clang":{"resourceDir":"/usr/lib/clang/9.0.1"}}'],
 \'cuda': ['ccls'],
-\'python':['pyls'],
+\'python':['$HOME/.local/bin/pyls'],
 \'rust':['rustup', 'run', 'stable', 'rls'],
 \'go':['gopls'],
 \}
@@ -77,17 +77,17 @@ function SetLSPShortcuts()
 	nnoremap <leader>f :call LanguageClient#textDocument_formatting()<CR>
 	nnoremap <leader>t :call LanguageClient#textDocument_typeDefinition()<CR>
 	nnoremap <leader>x :call LanguageClient#textDocument_references()<CR>
-	nnoremap <leader>a :call LanguageClient_workspace_applyEdit()<CR>
+	nnoremap <leader>a :call LanguageClient#workspace_applyEdit()<CR>
 	nnoremap <leader>c :call LanguageClient#textDocument_completion()<CR>
 	nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
-	nnoremap <leader>s :call LanguageClient_textDocument_documentSymbol()<CR>
+	nnoremap <leader>s :call LanguageClient#textDocument_documentSymbol()<CR>
 	nnoremap <leader>m :call LanguageClient_contextMenu()<CR>
 endfunction()
 
 augroup LSP
 	autocmd!
-	autocmd FileType c,cc,cpp,go,h,hh,hpp call SetLSPShortcuts()
-	autocmd BufWritePre *.c,*.cc,*.cpp,*.go,*.h,*.hh,*.hpp :call LanguageClient#textDocument_formatting()
+	autocmd FileType c,cc,cpp,go,h,hh,hpp,py call SetLSPShortcuts()
+	autocmd BufWritePre *.c,*.cc,*.cpp,*.go,*.h,*.hh,*.hpp,*.py :call LanguageClient#textDocument_formatting()
 augroup END
 
 autocmd vimenter * NERDTree
