@@ -17,6 +17,7 @@ export EDITOR="nvim"
 ####################
 
 QT_QPA_PLATFORMTHEME="qt5ct"
+MOZ_ENABLE_WAYLAND=1
 
 ####################
 #     SOURCE       #
@@ -72,5 +73,6 @@ alias run='./bin/$(premake5_startproject)'
 alias dbg='gdb ./bin/$(premake5_startproject)'
 
 alias bm='bear -a make'
+alias ed='nvim $(fzf)'
 
 
