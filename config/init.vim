@@ -48,7 +48,7 @@ call plug#begin('~/.neovim/plug')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'ryanoasis/vim-devicons'
-  Plug 'endel/vim-github-colorscheme'
+  Plug 'YorickPeterse/happy_hacking.vim'
 
 call plug#end()
 
@@ -200,7 +200,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
-colorscheme ron
 
 function! CargoRun()
 	:tabnew<CR>
@@ -237,5 +236,9 @@ nnoremap <F2> :call FuzzyTab()<CR>
 nnoremap <F5> :call CargoRun()<CR>
 nnoremap <F7> :call CargoBuild()<CR>
 
-" autocmd vimenter * NERDTree
+
+colorscheme ron
+
+highlight Pmenu ctermbg=NONE
+highlight Pmenu ctermfg=cyan
 
