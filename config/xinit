@@ -1,15 +1,9 @@
+#!/bin/bash
+picom&
 
-# run compton
-echo "COMPTON"
-compton&
-# my *fancy* bloated bar
-echo "BLOATED BAR"
 slstatus&
-# set the wallpaper
-echo "WALLPAPER ArchLinuxEnemy.png"
 
-feh --bg-scale "$HOME/dotfiles/wallpaper/ArchLinuxEnemy.png"&
+$HOME/.fehbg
 
-echo "suckless wm"
 dwm
 
