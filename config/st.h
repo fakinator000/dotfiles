@@ -9,7 +9,7 @@
 #define USER_ALPHA 0.8
 
 static char *font =
-    "DejaVu Sans Mono:pixelsize=14:antialias=true:autohint=true";
+    "Fira Code:pixelsize=14:antialias=true:autohint=true";
 static int borderpx = 0;
 
 /*
@@ -30,6 +30,7 @@ char *vtiden = "\033[?6c";
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
 static float chscale = 1.0;
+
 
 /*
  * word delimiter string

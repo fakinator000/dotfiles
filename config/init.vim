@@ -15,7 +15,13 @@ set shiftwidth=8
 set softtabstop=8
 set list lcs=tab:\|\ 
 set showbreak=↪\
-set nu
+set number relativenumber
+
+augroup numbertoggle
+	autocmd!
+	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+	autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+augroup end
 
 " folding
 "set foldmethod=syntax

@@ -1,7 +1,10 @@
 #!/bin/bash
+
 picom&
 
 slstatus&
+
+/usr/bin/unclutter --jitter 1 --timeout 1 -b
 
 $HOME/.fehbg
 

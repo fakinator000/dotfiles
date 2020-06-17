@@ -7,9 +7,9 @@
 
 export PS1="\[\e[35m\][\[\e[m\]\[\e[36m\]\u\[\e[m\]\[\e[35m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[35m\]]\[\e[m\] \[\e[36m\]\w\[\e[m\] \[\e[35m\]\\$\[\e[m\] "
 
-export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.node_modules_global/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.node_modules_global/bin:$PATH"
 export MANPATH="$HOME/.local/share/man/:/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man"
-export BROWSER="firefox"
+export BROWSER="/usr/bin/qutebrowser"
 export EDITOR="nvim"
 
 ####################
@@ -69,10 +69,13 @@ premake5_startproject() {
 	echo "$(grep startproject premake5.lua | awk '{print $2}' | xargs)"
 }
 
+
+
 alias run='./bin/$(premake5_startproject)'
 alias dbg='gdb ./bin/$(premake5_startproject)'
 
 alias bm='bear -a make'
 alias ed='nvim $(fzf)'
 
-
+# OTHER
+source /home/vlad/.config/broot/launcher/bash/br
