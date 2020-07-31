@@ -16,6 +16,7 @@ set softtabstop=8
 set list lcs=tab:\|\ 
 set showbreak=↪\
 set nu
+set relativenumber
 
 " folding
 set foldmethod=syntax
@@ -37,82 +38,64 @@ let g:python3_host_prog = '/usr/bin/python3.8'
 call plug#begin('~/.neovim/plug')
 
   " programming
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh'}
+  Plug 'neovim/nvim-lsp'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/diagnostic-nvim'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
 
   " utility
   Plug 'junegunn/fzf'
-"  Plug 'scrooloose/nerdtree'
-"  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'tpope/vim-fugitive'
-  Plug 'sirver/ultisnips'
-  Plug 'honza/vim-snippets'
   Plug 'airblade/vim-gitgutter'
 
   " theming
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'ryanoasis/vim-devicons'
-  Plug 'endel/vim-github-colorscheme'
+
+  Plug 'luochen1990/rainbow'
+
+  Plug 'morhetz/gruvbox'
 
 call plug#end()
 
-" PLUGIN SETTINGS
+colorscheme gruvbox
 
-" programming
-let g:deoplete#enable_at_startup = 1
+set termguicolors
+let g:rainbow_active = 1
 
-let g:LanguageClient_serverCommands = {
-\'c': ['ccls'],
-\'cpp': ['ccls', '--init={"clang":{"resourceDir":"/usr/lib/clang/10.0.0"}}'],
-\'cuda': ['ccls'],
-\'python':['$HOME/.local/bin/pyls'],
-\'rust':['rustup', 'run', 'stable', 'rls'],
-\'go':['gopls'],
-\'tex':['texlab'],
-\'js':['$HOME/npm/bin/javascript-typescript-langserver'],
-\'html':['$HOME/npm/bin/html-languageserver', '--stdio'],
-\'php':['php','vendor/felixfbecker/language-server/bin/php-language-server.php'],
-\}
-
-let g:LanguageClient_loadSettings = 1
-
-" utility
-
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-" theming
-colorscheme ron
+let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 
 
-" BINDS/HOOKS (autocmd, map)
+let g:diagnostic_enable_virtual_text = 1
+let g:completion_enable_snippet = 'vim-vsnip'
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
-" FZF \q
-nnoremap <leader>q :FZF<CR>
+let g:completion_matching_ignore_case = 1
 
-function SetLSPShortcuts()
-	nnoremap <leader><F5> :call LanguageClient_contextMenu()<CR>
-	nnoremap <leader>d :call LanguageClient#textDocument_definition()<CR>
-	nnoremap <leader>r :call LanguageClient#textDocument_rename()<CR>
-	nnoremap <leader>f :call LanguageClient#textDocument_formatting()<CR>
-	nnoremap <leader>t :call LanguageClient#textDocument_typeDefinition()<CR>
-	nnoremap <leader>x :call LanguageClient#textDocument_references()<CR>
-	nnoremap <leader>a :call LanguageClient#workspace_applyEdit()<CR>
-	nnoremap <leader>c :call LanguageClient#textDocument_completion()<CR>
-	nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
-	nnoremap <leader>s :call LanguageClient#textDocument_documentSymbol()<CR>
-	nnoremap <leader>m :call LanguageClient_contextMenu()<CR>
-endfunction()
+lua require('init').setup_nvim_lsp()
 
-augroup LSP
-	autocmd!
-	autocmd FileType c,cc,cpp,go,h,hh,hpp,html,js,php,py,tex call SetLSPShortcuts()
-	autocmd BufWritePre *.c,*.cc,*.cpp,*.go,*.h,*.hh,*.hpp,*.js,*.py,*.tex :call LanguageClient#textDocument_formatting()
-augroup END
+nnoremap <F2> :FZF<CR>
 
-au BufRead,BufNewFile *.tex set filetype=tex
+" You can use other key to expand snippet.
+imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+" Expand selected placeholder with <C-j> (see https://github.com/hrsh7th/vim-vsnip/pull/51)
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" Jump to the next placeholder with <C-l>
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
-" autocmd vimenter * NERDTree
+imap <expr> <Tab> pumvisible() ? "\<C-n>" : vsnip#available(1) ? '<Plug>(vsnip-jump-next)' : "\<Tab>"
+smap <expr> <Tab> pumvisible() ? "\<C-n>" : vsnip#available(1) ? '<Plug>(vsnip-jump-next)' : "\<Tab>"
+imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : "\<Tab>"
+smap <expr> <S-Tab> pumvisible() ? "\<C-p>" : vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : "\<Tab>"
+
+
+
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+
+set omnifunc=v:lua.vim.lsp.omnifunc
+
 

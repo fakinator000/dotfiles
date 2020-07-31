@@ -1,15 +1,11 @@
-
+#!/bin/sh
+xmodmap -e 'remove Lock = Caps_Lock' -e 'keycode 66 = Escape'&
 # run compton
-echo "COMPTON"
 compton&
 # my *fancy* bloated bar
-echo "BLOATED BAR"
 slstatus&
 # set the wallpaper
-echo "WALLPAPER ArchLinuxEnemy.png"
+$HOME/.fehbg
 
-feh --bg-scale "$HOME/dotfiles/wallpaper/ArchLinuxEnemy.png"&
-
-echo "suckless wm"
 dwm
 

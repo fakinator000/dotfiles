@@ -73,4 +73,6 @@ alias dbg='gdb ./bin/$(premake5_startproject)'
 
 alias bm='bear -a make'
 
+alias nvim='/home/vlad/dev/prefix/bin/nvim'
+export VIMRUNTIME=/home/vlad/dev/prefix/share/nvim/runtime
 

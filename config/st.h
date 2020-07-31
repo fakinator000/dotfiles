@@ -9,7 +9,7 @@
 #define USER_ALPHA 0.8
 
 static char *font =
-    "DejaVu Sans Mono:pixelsize=14:antialias=true:autohint=true";
+    "FiraCode Nerd Font Mono:style=Regular:pixelsize=14:antialias=true:autohint=true";
 static int borderpx = 0;
 
 /*
