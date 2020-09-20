@@ -98,4 +98,5 @@ set shortmess+=c
 
 set omnifunc=v:lua.vim.lsp.omnifunc
 
+imap <F5> <C-R>=strftime("%c")<CR>
 

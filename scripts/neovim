@@ -16,6 +16,7 @@ mkdir -p $CONFIG_PATH
 
 ln -s $PWD/config/init.vim $CONFIG_PATH/init.vim
 ln -s $PWD/config/UltiSnips $CONFIG_PATH/UltiSnips
+ln -s $PWD/config/lua $CONFIG_PATH/lua
 
 nvim +PlugInstall +qa
 
