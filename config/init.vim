@@ -44,7 +44,10 @@ call plug#begin('~/.neovim/plug')
   Plug 'hrsh7th/vim-vsnip'
   Plug 'hrsh7th/vim-vsnip-integ'
 
+  Plug 'igankevich/mesonic'
+
   " utility
+  Plug 'Chiel92/vim-autoformat'
   Plug 'junegunn/fzf'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -57,6 +60,7 @@ call plug#begin('~/.neovim/plug')
   Plug 'luochen1990/rainbow'
 
   Plug 'morhetz/gruvbox'
+  Plug 'victorze/foo'
 
 call plug#end()
 
@@ -68,6 +72,11 @@ let g:rainbow_active = 1
 let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 
 
+
+nnoremap <F11> :MesonInit build
+nnoremap <F5> :make
+
+
 let g:diagnostic_enable_virtual_text = 1
 let g:completion_enable_snippet = 'vim-vsnip'
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
@@ -76,7 +85,7 @@ let g:completion_matching_ignore_case = 1
 
 lua require('init').setup_nvim_lsp()
 
-nnoremap <F2> :FZF<CR>
+nnoremap <F2> :tabnew<CR>:FZF<CR>
 
 " You can use other key to expand snippet.
 imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
@@ -99,4 +108,16 @@ set shortmess+=c
 set omnifunc=v:lua.vim.lsp.omnifunc
 
 imap <F5> <C-R>=strftime("%c")<CR>
+
+function! ClangFormat()
+	let l:formatdiff = 1
+	pyf /usr/share/clang/clang-format.py
+endfunction
+
+autocmd FileType c,cpp set comments-=://
+autocmd FileType c,cpp set comments+=:///
+autocmd FileType c,cpp set comments+=://
+
+au BufWritePre *.h,*.cpp,*.hpp,*.c,*.rust,*.go,*.sh :Autoformat
+
 

@@ -10,7 +10,8 @@ export PS1="\[\e[35m\][\[\e[m\]\[\e[36m\]\u\[\e[m\]\[\e[35m\]@\[\e[m\]\[\e[32m\]
 export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.node_modules_global/bin:$PATH"
 export MANPATH="$HOME/.local/share/man/:/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man"
 export BROWSER="firefox"
-export EDITOR="nvim"
+export EDITOR="$HOME/dev/prefix/bin/nvim"
+export VIMRUNTIME=$HOME/dev/prefix/share/nvim/runtime
 
 ####################
 #  TODO:name this  #
@@ -64,15 +65,17 @@ alias live-desktop='streamlink --player="mpv-desktop"'
 # DEVELOPMENT      #
 ####################
 
-premake5_startproject() {
-	echo "$(grep startproject premake5.lua | awk '{print $2}' | xargs)"
-}
-
-alias run='./bin/$(premake5_startproject)'
-alias dbg='gdb ./bin/$(premake5_startproject)'
-
 alias bm='bear -a make'
 
-alias nvim='/home/vlad/dev/prefix/bin/nvim'
-export VIMRUNTIME=/home/vlad/dev/prefix/share/nvim/runtime
+alias nvim='$HOME/dev/prefix/bin/nvim'
+
+alias e='$EDITOR $(fzf)'
+alias ed='$EDITOR ../$(cd ..; fzf)'
+alias edit='$EDITOR $(fzf)'
+
+listen() {
+	args="$@"
+	youtube-dlc -f 251 "ytsearch:$args" -o - | mpv -
+}
+
 
