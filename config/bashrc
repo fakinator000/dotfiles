@@ -7,11 +7,10 @@
 
 export PS1="\[\e[35m\][\[\e[m\]\[\e[36m\]\u\[\e[m\]\[\e[35m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[35m\]]\[\e[m\] \[\e[36m\]\w\[\e[m\] \[\e[35m\]\\$\[\e[m\] "
 
-export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.node_modules_global/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.yarn/bin:$PATH"
 export MANPATH="$HOME/.local/share/man/:/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man"
 export BROWSER="firefox"
-export EDITOR="$HOME/dev/prefix/bin/nvim"
-export VIMRUNTIME=$HOME/dev/prefix/share/nvim/runtime
+export EDITOR="nvim"
 
 ####################
 #  TODO:name this  #
@@ -65,17 +64,19 @@ alias live-desktop='streamlink --player="mpv-desktop"'
 # DEVELOPMENT      #
 ####################
 
-alias bm='bear -a make'
-
-alias nvim='$HOME/dev/prefix/bin/nvim'
-
 alias e='$EDITOR $(fzf)'
 alias ed='$EDITOR ../$(cd ..; fzf)'
 alias edit='$EDITOR $(fzf)'
 
 listen() {
 	args="$@"
-	youtube-dlc -f 251 "ytsearch:$args" -o - | mpv -
+	youtube-dl -f 251 "ytsearch:$args" -o - | mpv -
 }
+
+watchyt() {
+	args="$@"
+	youtube-dl "ytsearch:$args" -o - | mpv -
+}
+
 
 
