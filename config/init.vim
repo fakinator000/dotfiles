@@ -28,11 +28,8 @@ set foldminlines=10
 
 set inccommand=nosplit
 
-" python paths pretty much
-let g:python_host_prog = '/usr/bin/python2.7'
-let g:python3_host_prog = '/usr/bin/python3.8'
-
 " PLUG
+let g:vimspector_enable_mappings = 'HUMAN'
 
 call plug#begin('~/.local/share/nvim/plug')
 
@@ -42,13 +39,22 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
+Plug 'puremourning/vimspector'
+
+Plug 'ziglang/zig.vim'
+
 Plug 'igankevich/mesonic'
+
+Plug 'dylon/vim-antlr'
 
 " utility
 Plug 'Chiel92/vim-autoformat'
 Plug 'junegunn/fzf'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+
+Plug 'tpope/vim-surround'
+
 
 " theming
 Plug 'vim-airline/vim-airline'
@@ -103,7 +109,9 @@ lsp.gopls.setup{on_attach=callback}
 lsp.pyls.setup{on_attach=callback}
 lsp.html.setup{on_attach=callback}
 lsp.cssls.setup{on_attach=callback}
-lsp.sumneko_lua.setup{on_attach=callback;}
+lsp.sumneko_lua.setup{on_attach=callback}
+
+lsp.zls.setup{on_attach=callback}
 
 print("LSP Loaded")
 
@@ -161,7 +169,12 @@ endfunction
 autocmd FileType c,cpp set comments-=://
 autocmd FileType c,cpp set comments+=:///
 
-autocmd BufWrite *.cpp,*.c,*.h,*.rs,*.go,*.sh :Autoformat
+autocmd FileType rust set tabstop=8
+
+autocmd BufWrite *.cpp,*.c,*.h,*.rs,*.go,*.py,*.sh :Autoformat
 "autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+
+au BufRead,BufNewFile *.g set filetype=antlr3
+au BufRead,BufNewFile *.g4 set filetype=antlr4
 
 
